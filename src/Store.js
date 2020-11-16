@@ -21,6 +21,15 @@ export const StoreProvider = ({ children }) => {
     setOption(option) {
       this.game.option = option;
     },
+    cardPush(card) {
+      this.deck.push(card);
+    },
+    shuffleDeck() {
+      this.deck = this.deck.sort(() => Math.random() - 0.5);
+    },
+    showDeck() {
+      console.log([...this.deck]);
+    },
   }));
 
   return (
