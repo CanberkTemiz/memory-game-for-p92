@@ -1,5 +1,13 @@
+import { useObserver } from "mobx-react";
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { useStore } from "../Store";
+
+import Card from "./Card";
+
+const StyledCardList = styled.div`
+  display: flex;
+`;
 
 export default function MemoryGame() {
   const store = useStore();
@@ -48,10 +56,17 @@ export default function MemoryGame() {
       store.cardPush(firstOption);
       store.cardPush(secondOption);
     }
-    //store.showDeck();
+    //     store.showDeck();
 
     store.shuffleDeck();
   }, []);
 
-  return <h1>mem game</h1>;
+  return useObserver(() => (
+    <StyledCardList>
+      {store.deck.length > 0 &&
+        store.deck.map((card) => {
+          return <Card card={card} key={card.id} />;
+        })}
+    </StyledCardList>
+  ));
 }

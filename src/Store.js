@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocalStore } from "mobx-react";
+import { ThemeConsumer } from "styled-components";
 
 const StoreContext = React.createContext(null);
 
@@ -12,7 +13,7 @@ export const StoreProvider = ({ children }) => {
     game: {
       option: 0,
       flippedCards: [],
-      valipFlipCount: 0,
+      validFlipCount: 0,
       totalFlipCount: 0,
     },
     setLogin(boolean) {
@@ -29,6 +30,31 @@ export const StoreProvider = ({ children }) => {
     },
     showDeck() {
       console.log([...this.deck]);
+    },
+    updateDeck(id) {
+      this.deck = this.deck.map((card) => {
+        if (card.id === id) {
+          card.flipped = true;
+        }
+        return card;
+      });
+    },
+    resetDeck() {
+      this.deck = this.deck.map((card) => {
+        if (!card.disabled) {
+          card.flipped = false;
+        }
+        return card;
+      });
+    },
+    incrementValidFlipCount() {
+      this.game.validFlipCount = this.game.validFlipCount + 1;
+    },
+    incrementTotalFlipCount() {
+      this.game.totalFlipCount = this.game.totalFlipCount + 1;
+    },
+    addFlippedCards(card) {
+      this.game.flippedCards.push(card);
     },
   }));
 
