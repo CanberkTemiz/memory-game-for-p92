@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStore } from "./Store";
 
-function App() {
+import Login from "./Components/Login";
+import { useObserver } from "mobx-react";
+
+export default function App() {
   const store = useStore();
 
-  console.log("store is here", store.user.isLogged);
-
-  return <div>App Component Works</div>;
+  return useObserver(() => {
+    return <div>{store.user.isLogged ? "" : <Login />}</div>;
+  });
 }
-
-export default App;

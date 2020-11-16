@@ -15,6 +15,12 @@ export const StoreProvider = ({ children }) => {
       valipFlipCount: 0,
       totalFlipCount: 0,
     },
+    setLogin(boolean) {
+      this.user.isLogged = boolean;
+    },
+    setOption(option) {
+      this.game.option = option;
+    },
   }));
 
   return (
