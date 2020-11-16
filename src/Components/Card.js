@@ -1,5 +1,21 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useStore } from "../Store";
+
+import { images } from "./images/index";
+import backSideCard from "./images/p92.png";
+
+const CustomCard = styled.div`
+  height: 130px;
+  width: 110px;
+  border: black solid;
+  margin: 10px;
+  display: inline-block;
+  background-size: cover;
+  pointer-events: ${(props) => (props.flipped ? "none" : "")};
+  background-image: url(${(props) =>
+    props.flipped ? images[props.number].picture : backSideCard});
+`;
 
 export default function Card({ card }) {
   const store = useStore();
@@ -19,19 +35,19 @@ export default function Card({ card }) {
       store.game.flippedCards[0].id != store.game.flippedCards[1].id
     ) {
       console.log("pair found");
-      store.incrementFoundPair();
+      store.incrementFoundPairCount();
 
       if (store.game.foundPair == store.game.option) {
         console.log("win case");
         store.setWinner(true);
         store.flushDeck();
-
         store.setLogin(false);
       }
 
       console.log("fp ", store.game.foundPair, "option:", store.game.option);
 
       // disable the found pair
+      store.disableFoundPair(store.game.flippedCards[0]);
     } else {
       console.log("keep trying");
 
@@ -50,11 +66,12 @@ export default function Card({ card }) {
   }, [store.game.validFlipCount]);
 
   return (
-    <div
-      style={{ margin: 10, height: 40, weight: 40 }}
-      onClick={handleCardClick}
-    >
-      This is a Card
+    <div>
+      <CustomCard
+        onClick={handleCardClick}
+        flipped={card.flipped}
+        number={card.number}
+      />
     </div>
   );
 }

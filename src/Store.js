@@ -27,8 +27,16 @@ export const StoreProvider = ({ children }) => {
     setWinner(boolean) {
       this.game.won = boolean;
     },
-    incrementFoundPair() {
+    incrementFoundPairCount() {
       this.game.foundPair = this.game.foundPair + 1;
+    },
+    disableFoundPair(card) {
+      this.deck = this.deck.map((el) => {
+        if (card.number === el.number) {
+          el.disabled = true;
+        }
+        return el;
+      });
     },
     cardPush(card) {
       this.deck.push(card);

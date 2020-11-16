@@ -1,5 +1,5 @@
-import { set } from "mobx";
 import React, { useState } from "react";
+import { Form, FormControl, Button } from "react-bootstrap";
 import { useStore } from "../Store";
 
 export default function Login() {
@@ -23,15 +23,16 @@ export default function Login() {
         <li>Game ends when all cards are removed</li>
       </ul>
 
-      <form onSubmit={(e) => handleFormSubmit(e)}>
-        <h3> Set pair of card to start</h3>
-        <input
+      <h3> Set pair of card to start</h3>
+      <Form onSubmit={(e) => handleFormSubmit(e)} inline>
+        <FormControl
           type="text"
-          value={option}
+          placeholder="Enter pair number"
+          className="mr-sm-2"
           onChange={(e) => setOption(e.target.value)}
         />
-        <button>Start Game</button>
-      </form>
+        <Button variant="outline-success">Start Game</Button>
+      </Form>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useObserver } from "mobx-react";
+import { useObserver, observer } from "mobx-react";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useStore } from "../Store";
@@ -6,7 +6,7 @@ import { useStore } from "../Store";
 import Card from "./Card";
 
 const StyledCardList = styled.div`
-  display: flex;
+  float: left;
 `;
 
 export default function MemoryGame() {
@@ -62,11 +62,15 @@ export default function MemoryGame() {
   }, []);
 
   return useObserver(() => (
-    <StyledCardList>
+    <div>
       {store.deck.length > 0 &&
-        store.deck.map((card) => {
-          return <Card card={card} key={card.id} />;
+        store.deck.map((card, index) => {
+          return (
+            <StyledCardList key={index}>
+              <Card card={card} key={card.id} />
+            </StyledCardList>
+          );
         })}
-    </StyledCardList>
+    </div>
   ));
 }
