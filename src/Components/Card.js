@@ -23,7 +23,7 @@ export default function Card({ card }) {
 
       if (store.game.foundPair == store.game.option) {
         console.log("win case");
-        store.setWinner(1);
+        store.setWinner(true);
         store.flushDeck();
 
         store.setLogin(false);

@@ -11,7 +11,7 @@ export const StoreProvider = ({ children }) => {
     },
     deck: [],
     game: {
-      won: 0,
+      won: false,
       option: 0,
       foundPair: 0,
       flippedCards: [],
