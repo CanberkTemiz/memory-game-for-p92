@@ -11,7 +11,9 @@ export const StoreProvider = ({ children }) => {
     },
     deck: [],
     game: {
+      won: 0,
       option: 0,
+      foundPair: 0,
       flippedCards: [],
       validFlipCount: 0,
       totalFlipCount: 0,
@@ -22,11 +24,21 @@ export const StoreProvider = ({ children }) => {
     setOption(option) {
       this.game.option = option;
     },
+    setWinner(boolean) {
+      this.game.won = boolean;
+    },
+    incrementFoundPair() {
+      this.game.foundPair = this.game.foundPair + 1;
+    },
     cardPush(card) {
       this.deck.push(card);
     },
     shuffleDeck() {
       this.deck = this.deck.sort(() => Math.random() - 0.5);
+    },
+    flushDeck() {
+      this.game.foundPair = 0;
+      this.deck.length = 0;
     },
     showDeck() {
       console.log([...this.deck]);

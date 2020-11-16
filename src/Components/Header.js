@@ -8,7 +8,10 @@ export default function Header() {
   return useObserver(() => (
     <div>
       <p>Im always here</p>
-      <header>Total Count: {store.game.totalFlipCount}</header>
+      <header>
+        <div>Total Count: {store.game.totalFlipCount}</div>
+        <div>Won: {store.game.won}</div>
+      </header>
       <p>Best Score: </p>
       <hr />
     </div>

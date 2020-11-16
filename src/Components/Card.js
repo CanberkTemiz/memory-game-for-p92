@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "../Store";
+
 export default function Card({ card }) {
   const store = useStore();
 
@@ -18,10 +19,22 @@ export default function Card({ card }) {
       store.game.flippedCards[0].id != store.game.flippedCards[1].id
     ) {
       console.log("pair found");
+      store.incrementFoundPair();
+
+      if (store.game.foundPair == store.game.option) {
+        console.log("win case");
+        store.setWinner(1);
+        store.flushDeck();
+
+        store.setLogin(false);
+      }
+
+      console.log("fp ", store.game.foundPair, "option:", store.game.option);
 
       // disable the found pair
     } else {
       console.log("keep trying");
+
       setTimeout(() => {
         store.resetDeck();
       }, 500);
