@@ -16,20 +16,9 @@ export default function App() {
   return useObserver(() => {
     return (
       <Container>
-        <Row>
-          <Header />
-        </Row>
-        <Row>
-          {store.user.isLogged ? (
-            <Col>
-              <MemoryGame />
-            </Col>
-          ) : (
-            <Col>
-              <Login />
-            </Col>
-          )}
-        </Row>
+        <Header />
+
+        {store.user.isLogged ? <MemoryGame /> : <Login />}
       </Container>
     );
   });

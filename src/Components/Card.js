@@ -6,9 +6,9 @@ import { images } from "./images/index";
 import backSideCard from "./images/p92.png";
 
 const CustomCard = styled.div`
-  height: 130px;
-  width: 110px;
-  border: black solid;
+  height: 140px;
+  width: 120px;
+
   margin: 10px;
   display: inline-block;
   background-size: cover;

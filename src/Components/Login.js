@@ -1,6 +1,22 @@
 import React, { useState } from "react";
-import { Form, FormControl, Button } from "react-bootstrap";
+import styled from "styled-components";
+import {
+  Form,
+  FormControl,
+  Button,
+  Row,
+  Col,
+  InputGroup,
+} from "react-bootstrap";
 import { useStore } from "../Store";
+
+const StyledFormControl = styled(FormControl)`
+  width: 200px !important;
+`;
+
+const StyledRules = styled.div`
+  margin-left: 60px;
+`;
 
 export default function Login() {
   const store = useStore();
@@ -14,25 +30,37 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Rules</h2>
-      <ul>
-        <li>Click any card to see a hidden number</li>
-        <li>Find a card pair that shares same number</li>
-        <li>If card are not matching, they be flip back</li>
-        <li>Game ends when all cards are removed</li>
-      </ul>
+    <Row>
+      <Col>
+        <StyledRules>
+          <h2>Rules</h2>
+          <ul>
+            <li>Click any card to see a hidden number</li>
+            <li>Find a card pair that shares same number</li>
+            <li>If card are not matching, they be flip back</li>
+            <li>Game ends when all cards are removed</li>
+          </ul>
+        </StyledRules>
+      </Col>
 
-      <h3> Set pair of card to start</h3>
-      <Form onSubmit={(e) => handleFormSubmit(e)} inline>
-        <FormControl
-          type="text"
-          placeholder="Enter pair number"
-          className="mr-sm-2"
-          onChange={(e) => setOption(e.target.value)}
-        />
-        <Button variant="outline-success">Start Game</Button>
-      </Form>
-    </div>
+      <Col>
+        <h3> Set pair of card to start</h3>
+        <Form onSubmit={(e) => handleFormSubmit(e)} inline>
+          <StyledFormControl
+            type="number"
+            placeholder="Enter number of pair"
+            min="3"
+            max="10"
+            required
+            className="mr-sm-2"
+            onChange={(e) => setOption(e.target.value)}
+          />
+
+          <Button type="submit" variant="outline-success">
+            Start Game
+          </Button>
+        </Form>
+      </Col>
+    </Row>
   );
 }
