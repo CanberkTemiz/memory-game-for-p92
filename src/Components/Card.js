@@ -25,11 +25,6 @@ export default function Card({ card }) {
   // const [value, setValue] = usePersistedState([]);
   const store = useStore();
 
-  // useEffect(() => {
-  //   setValue(store.deck);
-  //   console.log("deck degisti");
-  // }, [store.deck]);
-
   const handleCardClick = () => {
     console.log("clicked card# ", card.number);
     store.updateDeck(card.id);
@@ -81,7 +76,6 @@ export default function Card({ card }) {
         flipped={card.flipped}
         number={card.number}
       />
-      <h1>{value}</h1>
     </div>
   );
 }

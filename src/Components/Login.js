@@ -49,7 +49,7 @@ export default function Login() {
             onChange={(e) => setOption(e.target.value)}
           />
 
-          <Button type="submit" variant="outline-success">
+          <Button type="submit" variant="danger">
             Start Game
           </Button>
         </Form>
