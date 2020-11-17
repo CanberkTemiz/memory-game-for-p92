@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  Form,
-  FormControl,
-  Button,
-  Row,
-  Col,
-  InputGroup,
-} from "react-bootstrap";
+import { Form, FormControl, Button, Row, Col } from "react-bootstrap";
 import { useStore } from "../Store";
 
 const StyledFormControl = styled(FormControl)`

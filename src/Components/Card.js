@@ -5,6 +5,10 @@ import { useStore } from "../Store";
 import { images } from "./images/index";
 import backSideCard from "./images/p92.png";
 
+import createPersistedState from "@plq/use-persisted-state";
+// import storage from "@plq/use-persisted-state/lib/storages/local-storage";
+// const [usePersistedState] = createPersistedState("simple_example", storage);
+
 const CustomCard = styled.div`
   height: 140px;
   width: 120px;
@@ -18,9 +22,14 @@ const CustomCard = styled.div`
 `;
 
 export default function Card({ card }) {
+  // const [value, setValue] = usePersistedState([]);
   const store = useStore();
 
-  //   console.log("this card: ", card);
+  // useEffect(() => {
+  //   setValue(store.deck);
+  //   console.log("deck degisti");
+  // }, [store.deck]);
+
   const handleCardClick = () => {
     console.log("clicked card# ", card.number);
     store.updateDeck(card.id);
@@ -72,6 +81,7 @@ export default function Card({ card }) {
         flipped={card.flipped}
         number={card.number}
       />
+      <h1>{value}</h1>
     </div>
   );
 }
