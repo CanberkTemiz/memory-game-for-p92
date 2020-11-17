@@ -18,6 +18,7 @@ export default function Login() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    //start the game
     store.setOption(option);
     store.setLogin(true);
   };

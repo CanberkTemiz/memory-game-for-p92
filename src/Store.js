@@ -46,6 +46,7 @@ export const StoreProvider = ({ children }) => {
     },
     flushDeck() {
       this.game.foundPair = 0;
+      this.game.totalFlipCount = 0;
       this.deck.length = 0;
     },
     showDeck() {

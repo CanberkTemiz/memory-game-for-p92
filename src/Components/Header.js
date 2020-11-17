@@ -20,7 +20,7 @@ export default function Header() {
   // }, [store.deck]);
 
   const handledRestartGame = () => {
-    // flush the deck
+    // Restart the game
     store.flushDeck();
     store.setLogin(false);
   };
@@ -35,13 +35,13 @@ export default function Header() {
         </Nav>
         {store.user.isLogged && (
           <Button onClick={handledRestartGame} variant="light">
+            Restart Game
             <svg
               width="2em"
               height="2em"
               viewBox="0 0 16 16"
               className="bi bi-arrow-clockwise"
               fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 fillRule="evenodd"
@@ -49,7 +49,6 @@ export default function Header() {
               />
               <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
             </svg>
-            Restart Game
           </Button>
         )}
       </Navbar>
