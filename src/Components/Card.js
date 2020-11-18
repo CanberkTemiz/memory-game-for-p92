@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useStore } from "../Store";
 
 import { images } from "./images/index";
 import backSideCard from "./images/p92.png";
-
-import createPersistedState from "@plq/use-persisted-state";
-// import storage from "@plq/use-persisted-state/lib/storages/local-storage";
-// const [usePersistedState] = createPersistedState("simple_example", storage);
 
 const CustomCard = styled.div`
   height: 140px;
@@ -21,7 +17,7 @@ const CustomCard = styled.div`
     props.flipped ? images[props.number].picture : backSideCard});
 `;
 
-export default function Card({ card }) {
+const Card = ({ card }) => {
   // const [value, setValue] = usePersistedState([]);
   const store = useStore();
 
@@ -78,4 +74,6 @@ export default function Card({ card }) {
       />
     </div>
   );
-}
+};
+
+export default Card;

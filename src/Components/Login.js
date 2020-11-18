@@ -11,7 +11,7 @@ const StyledRules = styled.div`
   margin-left: 60px;
 `;
 
-export default function Login() {
+const Login = () => {
   const store = useStore();
   const [option, setOption] = useState("");
 
@@ -57,4 +57,6 @@ export default function Login() {
       </Col>
     </Row>
   );
-}
+};
+
+export default Login;

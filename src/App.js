@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useObserver } from "mobx-react";
+import { observer } from "mobx-react";
 
 import { Container, Row, Col } from "react-bootstrap";
 import { useStore } from "./Store";
@@ -10,16 +10,20 @@ import Header from "./Components/Header";
 
 // const FullWidthRow = styled(Row)``
 
-export default function App() {
+const App = observer(() => {
   const store = useStore();
 
-  return useObserver(() => {
-    return (
-      <Container>
-        <Header />
+  useEffect(() => {
+    // console.log(store.user);
+  }, []);
 
-        {store.user.isLogged ? <MemoryGame /> : <Login />}
-      </Container>
-    );
-  });
-}
+  return (
+    <Container>
+      <Header />
+
+      {store.user.isLogged ? <MemoryGame /> : <Login />}
+    </Container>
+  );
+});
+
+export default App;

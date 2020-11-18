@@ -9,7 +9,7 @@ const StyledCardList = styled.div`
   float: left;
 `;
 
-export default function MemoryGame() {
+const MemoryGame = observer(() => {
   const store = useStore();
 
   const pictures = [
@@ -61,7 +61,7 @@ export default function MemoryGame() {
     store.shuffleDeck();
   }, []);
 
-  return useObserver(() => (
+  return (
     <div>
       {store.deck.length > 0 &&
         store.deck.map((card, index) => {
@@ -72,5 +72,7 @@ export default function MemoryGame() {
           );
         })}
     </div>
-  ));
-}
+  );
+});
+
+export default MemoryGame;

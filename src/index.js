@@ -2,12 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
-import { StoreProvider } from "./Store";
+import Store, { StoreProvider } from "./Store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const store = new Store();
+
 ReactDOM.render(
-  <StoreProvider>
+  <StoreProvider store={store}>
     <App />
   </StoreProvider>,
   document.getElementById("root")
