@@ -20,6 +20,7 @@ const Login = () => {
 
     //start the game
     store.setOption(option);
+    localStorage.setItem("isLogged", "true");
     store.setLogin(true);
   };
 

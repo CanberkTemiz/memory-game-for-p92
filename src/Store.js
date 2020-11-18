@@ -18,7 +18,6 @@ export default class Store {
   constructor() {
     makeAutoObservable(this);
   }
-
   setLogin(boolean) {
     this.user.isLogged = boolean;
   }
@@ -31,13 +30,14 @@ export default class Store {
   incrementFoundPairCount() {
     this.game.foundPair = this.game.foundPair + 1;
   }
-  disableFoundPair(card) {
-    this.deck = this.deck.map((el) => {
-      if (card.number === el.number) {
-        el.disabled = true;
+  disableFoundPair(number) {
+    this.deck = this.deck.map((card) => {
+      if (card.number === number) {
+        card.disabled = true;
       }
-      return el;
+      return card;
     });
+    localStorage.setItem("deck", this.deck);
   }
   cardPush(card) {
     this.deck.push(card);
@@ -65,9 +65,26 @@ export default class Store {
     this.deck = this.deck.map((card) => {
       if (!card.disabled) {
         card.flipped = false;
+        return card;
       }
       return card;
     });
+  }
+  resumeGame(deck) {
+    // retrieve the prev total count
+    let prevFlipCount = deck.filter((card) => card.flipped).length / 2;
+
+    this.setTotalFlipCount(prevFlipCount);
+
+    this.deck = [...deck];
+
+    // retrieve the prev option
+    this.option = this.deck.length / 2;
+
+    console.log("prev totalCount", prevFlipCount, " prev option", this.option);
+  }
+  setTotalFlipCount(prevValue) {
+    this.totalFlipCount = prevValue;
   }
   incrementValidFlipCount() {
     this.game.validFlipCount = this.game.validFlipCount + 1;

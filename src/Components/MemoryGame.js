@@ -1,4 +1,4 @@
-import { useObserver, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useStore } from "../Store";
@@ -56,13 +56,24 @@ const MemoryGame = observer(() => {
       store.cardPush(firstOption);
       store.cardPush(secondOption);
     }
-    //     store.showDeck();
 
     store.shuffleDeck();
   }, []);
 
+  useEffect(() => {
+    // save the current game
+
+    if (store.deck.length <= 0 && store.user.isLogged) {
+      if (localStorage.getItem("deck").length) {
+        let currentDeck = JSON.parse(localStorage.getItem("deck"));
+        store.resumeGame(currentDeck);
+      }
+    }
+  }, [store.deck.length]);
+
   return (
     <div>
+      <h3>ben hep burdayim</h3>
       {store.deck.length > 0 &&
         store.deck.map((card, index) => {
           return (

@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { autorun } from "mobx";
+import localStorage from "mobx-localstorage";
 import styled from "styled-components";
 import { useStore } from "../Store";
 
@@ -21,11 +23,22 @@ const Card = ({ card }) => {
   // const [value, setValue] = usePersistedState([]);
   const store = useStore();
 
+  useEffect(() => {
+    if (store.game.validFlipCount === 2) {
+      store.incrementTotalFlipCount();
+
+      checkPair();
+    }
+  }, [store.game.validFlipCount]);
+
   const handleCardClick = () => {
     console.log("clicked card# ", card.number);
-    store.updateDeck(card.id);
+    store.updateDeck(card.id); //flip card
     store.incrementValidFlipCount();
     store.addFlippedCards(card);
+
+    // save the deck -- in case of reload
+    localStorage.setItem("deck", store.deck);
   };
 
   const checkPair = () => {
@@ -34,36 +47,39 @@ const Card = ({ card }) => {
       store.game.flippedCards[0].id != store.game.flippedCards[1].id
     ) {
       console.log("pair found");
+
+      // disable the found pair
+      store.disableFoundPair(store.game.flippedCards[0].number);
+      localStorage.setItem("deck", store.deck);
+
       store.incrementFoundPairCount();
 
+      // win case
       if (store.game.foundPair == store.game.option) {
         console.log("win case");
         store.setWinner(true);
         store.flushDeck();
         store.setLogin(false);
       }
-
-      console.log("fp ", store.game.foundPair, "option:", store.game.option);
-
-      // disable the found pair
-      store.disableFoundPair(store.game.flippedCards[0]);
     } else {
       console.log("keep trying");
 
+      // kartlari geri dondur
+
       setTimeout(() => {
         store.resetDeck();
+        localStorage.setItem("deck", store.deck);
       }, 500);
     }
+    // save the deck -- in case of reload
+
     store.game.flippedCards.length = 0;
     store.game.validFlipCount = 0;
   };
 
-  useEffect(() => {
-    if (store.game.validFlipCount === 2) {
-      store.incrementTotalFlipCount();
-      checkPair();
-    }
-  }, [store.game.validFlipCount]);
+  autorun(() => {
+    // console.log("autorun...", localStorage.getItem("isLogged"));
+  });
 
   return (
     <div>
