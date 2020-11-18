@@ -37,7 +37,6 @@ export default class Store {
       }
       return card;
     });
-    localStorage.setItem("deck", this.deck);
   }
   cardPush(card) {
     this.deck.push(card);

@@ -24,6 +24,11 @@ const Card = ({ card }) => {
   const store = useStore();
 
   useEffect(() => {
+    let currrentDeck = store.deck;
+    localStorage.setItem("deck", currrentDeck);
+  }, []);
+
+  useEffect(() => {
     if (store.game.validFlipCount === 2) {
       store.incrementTotalFlipCount();
 

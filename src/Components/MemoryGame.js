@@ -61,7 +61,7 @@ const MemoryGame = observer(() => {
   }, []);
 
   useEffect(() => {
-    // save the current game
+    // save the current game -- when page refesh
 
     if (store.deck.length <= 0 && store.user.isLogged) {
       if (localStorage.getItem("deck").length) {
