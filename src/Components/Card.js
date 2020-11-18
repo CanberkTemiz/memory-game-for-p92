@@ -26,7 +26,6 @@ const Card = ({ card }) => {
     store.updateDeck(card.id);
     store.incrementValidFlipCount();
     store.addFlippedCards(card);
-    store.incrementTotalFlipCount();
   };
 
   const checkPair = () => {
@@ -61,6 +60,7 @@ const Card = ({ card }) => {
 
   useEffect(() => {
     if (store.game.validFlipCount === 2) {
+      store.incrementTotalFlipCount();
       checkPair();
     }
   }, [store.game.validFlipCount]);
