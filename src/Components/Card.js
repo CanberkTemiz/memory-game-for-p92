@@ -26,9 +26,13 @@ const Card = ({ card }) => {
   useEffect(() => {
     let currrentDeck = store.deck;
     localStorage.setItem("deck", currrentDeck);
+    // console.log("seee, ", store.game.totalFlipCount);
+    // let currentTotal = store.game.totalFlipCount;
+    // localStorage.setItem("totalCount", currentTotal);
   }, []);
 
   useEffect(() => {
+    localStorage.setItem("totalCount", store.game.totalFlipCount);
     if (store.game.validFlipCount === 2) {
       store.incrementTotalFlipCount();
 
@@ -56,6 +60,7 @@ const Card = ({ card }) => {
       // disable the found pair
       store.disableFoundPair(store.game.flippedCards[0].number);
       localStorage.setItem("deck", store.deck);
+      localStorage.setItem("totalCount", store.game.totalFlipCount);
 
       store.incrementFoundPairCount();
 
@@ -74,6 +79,7 @@ const Card = ({ card }) => {
       setTimeout(() => {
         store.resetDeck();
         localStorage.setItem("deck", store.deck);
+        localStorage.setItem("totalCount", store.game.totalFlipCount);
       }, 500);
     }
     // save the deck -- in case of reload

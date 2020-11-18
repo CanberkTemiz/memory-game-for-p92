@@ -66,7 +66,9 @@ const MemoryGame = observer(() => {
     if (store.deck.length <= 0 && store.user.isLogged) {
       if (localStorage.getItem("deck").length) {
         let currentDeck = JSON.parse(localStorage.getItem("deck"));
-        store.resumeGame(currentDeck);
+        let currentTotalCount = localStorage.getItem("totalCount");
+
+        store.resumeGame(currentDeck, currentTotalCount);
       }
     }
   }, [store.deck.length]);

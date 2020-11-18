@@ -69,9 +69,11 @@ export default class Store {
       return card;
     });
   }
-  resumeGame(deck) {
+  resumeGame(deck, totalCount) {
+    console.log("resume game calisti");
+
     // retrieve the prev total count
-    let prevFlipCount = deck.filter((card) => card.flipped).length / 2;
+    let prevFlipCount = parseInt(totalCount);
 
     this.setTotalFlipCount(prevFlipCount);
 
@@ -83,7 +85,7 @@ export default class Store {
     console.log("prev totalCount", prevFlipCount, " prev option", this.option);
   }
   setTotalFlipCount(prevValue) {
-    this.totalFlipCount = prevValue;
+    this.game.totalFlipCount = prevValue;
   }
   incrementValidFlipCount() {
     this.game.validFlipCount = this.game.validFlipCount + 1;
