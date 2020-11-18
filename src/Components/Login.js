@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react";
+import localStorage from "mobx-localstorage";
+
 import styled from "styled-components";
 import { Form, FormControl, Button, Row, Col } from "react-bootstrap";
 import { useStore } from "../Store";
@@ -11,7 +14,7 @@ const StyledRules = styled.div`
   margin-left: 60px;
 `;
 
-const Login = () => {
+const Login = observer(() => {
   const store = useStore();
   const [option, setOption] = useState("");
 
@@ -20,8 +23,8 @@ const Login = () => {
 
     //start the game
     store.setOption(option);
-    localStorage.setItem("isLogged", "true");
     store.setLogin(true);
+    localStorage.setItem("isLogged", true);
   };
 
   return (
@@ -58,6 +61,6 @@ const Login = () => {
       </Col>
     </Row>
   );
-};
+});
 
 export default Login;

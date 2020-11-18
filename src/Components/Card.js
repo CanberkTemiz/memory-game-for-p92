@@ -10,7 +10,6 @@ import backSideCard from "./images/p92.png";
 const CustomCard = styled.div`
   height: 140px;
   width: 120px;
-
   margin: 10px;
   display: inline-block;
   background-size: cover;
@@ -20,19 +19,17 @@ const CustomCard = styled.div`
 `;
 
 const Card = ({ card }) => {
-  // const [value, setValue] = usePersistedState([]);
   const store = useStore();
 
   useEffect(() => {
     let currrentDeck = store.deck;
+
     localStorage.setItem("deck", currrentDeck);
-    // console.log("seee, ", store.game.totalFlipCount);
-    // let currentTotal = store.game.totalFlipCount;
-    // localStorage.setItem("totalCount", currentTotal);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("totalCount", store.game.totalFlipCount);
+    localStorage.setItem("foundPair", store.game.foundPair);
     if (store.game.validFlipCount === 2) {
       store.incrementTotalFlipCount();
 
@@ -41,7 +38,7 @@ const Card = ({ card }) => {
   }, [store.game.validFlipCount]);
 
   const handleCardClick = () => {
-    console.log("clicked card# ", card.number);
+    // console.log("clicked card# ", card.number);
     store.updateDeck(card.id); //flip card
     store.incrementValidFlipCount();
     store.addFlippedCards(card);
@@ -61,15 +58,32 @@ const Card = ({ card }) => {
       store.disableFoundPair(store.game.flippedCards[0].number);
       localStorage.setItem("deck", store.deck);
       localStorage.setItem("totalCount", store.game.totalFlipCount);
+      localStorage.setItem("foundPair", store.game.foundPair);
 
       store.incrementFoundPairCount();
+      console.log(
+        "store.game.foundPair",
+        store.game.foundPair,
+        "store.game.option",
+        store.game.option
+      );
 
       // win case
       if (store.game.foundPair == store.game.option) {
         console.log("win case");
+
+        console.log("win case: totalFlipCount: ", store.game.totalFlipCount);
+        store.updateBestScore({
+          pair: parseInt(store.game.option),
+          score: store.game.totalFlipCount,
+        });
+
+        localStorage.setItem("bestScore", store.bestScore);
+
         store.setWinner(true);
         store.flushDeck();
         store.setLogin(false);
+        localStorage.setItem("isLogged", false);
       }
     } else {
       console.log("keep trying");
@@ -80,6 +94,7 @@ const Card = ({ card }) => {
         store.resetDeck();
         localStorage.setItem("deck", store.deck);
         localStorage.setItem("totalCount", store.game.totalFlipCount);
+        localStorage.setItem("foundPair", store.game.foundPair);
       }, 500);
     }
     // save the deck -- in case of reload

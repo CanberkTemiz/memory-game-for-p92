@@ -14,6 +14,40 @@ export default class Store {
     validFlipCount: 0,
     totalFlipCount: 0,
   };
+  bestScore = [
+    {
+      pair: 3,
+      score: 0,
+    },
+    {
+      pair: 4,
+      score: 0,
+    },
+    {
+      pair: 5,
+      score: 0,
+    },
+    {
+      pair: 6,
+      score: 0,
+    },
+    {
+      pair: 7,
+      score: 0,
+    },
+    {
+      pair: 8,
+      score: 0,
+    },
+    {
+      pair: 9,
+      score: 0,
+    },
+    {
+      pair: 10,
+      score: 0,
+    },
+  ];
 
   constructor() {
     makeAutoObservable(this);
@@ -26,6 +60,26 @@ export default class Store {
   }
   setWinner(boolean) {
     this.game.won = boolean;
+  }
+  scorePush(currentScore) {
+    console.log("score push calisti");
+
+    // this.bestScore.push({ pair: currentScore.pair, score: });
+  }
+  updateBestScore(currentScore) {
+    console.log("score update calisti");
+
+    this.bestScore.filter((element) => {
+      if (element.pair === currentScore.pair) {
+        console.log("element", element);
+        if (element.score > currentScore.score || element.score === 0) {
+          element.score = currentScore.score;
+        }
+        // element.score = currentScore.score;
+      }
+    });
+
+    console.log("update sonrasi scores: ", this.bestScore);
   }
   incrementFoundPairCount() {
     this.game.foundPair = this.game.foundPair + 1;
@@ -69,24 +123,34 @@ export default class Store {
       return card;
     });
   }
-  resumeGame(deck, totalCount) {
+  resumeGame(deck, prevTotalCount, prevFoundPairCount, currentBestScore) {
     console.log("resume game calisti");
 
     // retrieve the prev total count
-    let prevFlipCount = parseInt(totalCount);
-
-    this.setTotalFlipCount(prevFlipCount);
+    this.game.totalFlipCount = parseInt(prevTotalCount);
 
     this.deck = [...deck];
 
     // retrieve the prev option
-    this.option = this.deck.length / 2;
+    this.game.option = this.deck.length / 2;
 
-    console.log("prev totalCount", prevFlipCount, " prev option", this.option);
+    // retrieve the prev found-pair
+    this.game.foundPair = parseInt(prevFoundPairCount);
+
+    this.bestScore = currentBestScore;
+
+    console.log(
+      "prev totalCount",
+      prevTotalCount,
+      " prev option",
+      this.game.option,
+      " prev found pair ",
+      this.game.foundPair
+    );
   }
-  setTotalFlipCount(prevValue) {
-    this.game.totalFlipCount = prevValue;
-  }
+  // setTotalFlipCount(prevValue) {
+  //   this.game.totalFlipCount = prevValue;
+  // }
   incrementValidFlipCount() {
     this.game.validFlipCount = this.game.validFlipCount + 1;
   }

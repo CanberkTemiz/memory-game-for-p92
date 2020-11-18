@@ -1,4 +1,5 @@
 import { observer } from "mobx-react";
+import localStorage from "mobx-localstorage";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useStore } from "../Store";
@@ -35,6 +36,7 @@ const MemoryGame = observer(() => {
     "19.png",
   ];
 
+  // create deck
   useEffect(() => {
     for (let i = 0; i < store.game.option; i++) {
       const firstOption = {
@@ -60,22 +62,38 @@ const MemoryGame = observer(() => {
     store.shuffleDeck();
   }, []);
 
+  // save the current game -- when page refesh
   useEffect(() => {
-    // save the current game -- when page refesh
+    // console.log("use Effect, init, store.bestScore", store.bestScore);
 
-    if (store.deck.length <= 0 && store.user.isLogged) {
-      if (localStorage.getItem("deck").length) {
-        let currentDeck = JSON.parse(localStorage.getItem("deck"));
-        let currentTotalCount = localStorage.getItem("totalCount");
+    console.log("calistimm");
+    if (!store.game.won) {
+      if (store.deck.length <= 0 && store.user.isLogged) {
+        if (localStorage.getItem("deck").length) {
+          // let currentDeck = JSON.parse(localStorage.getItem("deck"));
+          let currentDeck = localStorage.getItem("deck");
+          let currentTotalCount = localStorage.getItem("totalCount");
+          let currentFoundPair = localStorage.getItem("foundPair");
+          let currentBestScore = localStorage.getItem("bestScore");
 
-        store.resumeGame(currentDeck, currentTotalCount);
+          store.resumeGame(
+            currentDeck,
+            currentTotalCount,
+            currentFoundPair,
+            currentBestScore
+          );
+        }
       }
     }
   }, [store.deck.length]);
 
+  useEffect(() => {
+    localStorage.setItem("bestScore", store.bestScore);
+  }, []);
+
   return (
     <div>
-      <h3>ben hep burdayim</h3>
+      <h4>ben hep butrdyaim</h4>
       {store.deck.length > 0 &&
         store.deck.map((card, index) => {
           return (
