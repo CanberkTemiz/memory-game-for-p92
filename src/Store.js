@@ -63,8 +63,6 @@ export default class Store {
   }
   scorePush(currentScore) {
     console.log("score push calisti");
-
-    // this.bestScore.push({ pair: currentScore.pair, score: });
   }
   updateBestScore(currentScore) {
     console.log("score update calisti");
@@ -75,7 +73,6 @@ export default class Store {
         if (element.score > currentScore.score || element.score === 0) {
           element.score = currentScore.score;
         }
-        // element.score = currentScore.score;
       }
     });
 
@@ -148,9 +145,6 @@ export default class Store {
       this.game.foundPair
     );
   }
-  // setTotalFlipCount(prevValue) {
-  //   this.game.totalFlipCount = prevValue;
-  // }
   incrementValidFlipCount() {
     this.game.validFlipCount = this.game.validFlipCount + 1;
   }

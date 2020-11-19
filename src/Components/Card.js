@@ -7,6 +7,8 @@ import { useStore } from "../Store";
 import { images } from "./images/index";
 import backSideCard from "./images/p92.png";
 
+import ReactCardFlip from "react-card-flip";
+
 const CustomCard = styled.div`
   height: 140px;
   width: 120px;
@@ -109,11 +111,19 @@ const Card = ({ card }) => {
 
   return (
     <div>
-      <CustomCard
-        onClick={handleCardClick}
-        flipped={card.flipped}
-        number={card.number}
-      />
+      <ReactCardFlip isFlipped={card.flipped}>
+        <CustomCard
+          onClick={handleCardClick}
+          flipped={card.flipped}
+          number={card.number}
+        />
+
+        <CustomCard
+          onClick={handleCardClick}
+          flipped={card.flipped}
+          number={card.number}
+        />
+      </ReactCardFlip>
     </div>
   );
 };
