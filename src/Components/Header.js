@@ -4,6 +4,11 @@ import { observer, useObserver } from "mobx-react";
 import { Navbar, Nav, Jumbotron, Button } from "react-bootstrap";
 import { useStore } from "../Store";
 import { autorun } from "mobx";
+import styled from "styled-components";
+
+const StyledBrand = styled(Navbar.Brand)`
+  font-size: 40px;
+`;
 
 const Header = observer(() => {
   const store = useStore();
@@ -28,20 +33,22 @@ const Header = observer(() => {
     <Jumbotron>
       <Navbar bg="danger" expand="lg" variant="dark">
         <Nav className="mr-auto">
-          <Navbar.Brand>Memory Game Info: </Navbar.Brand>
-          <Navbar.Brand>Total Count: {store.game.totalFlipCount}</Navbar.Brand>
-          <Navbar.Text>Best Score: --coming soon--</Navbar.Text>
+          <StyledBrand>Memory Game</StyledBrand>
         </Nav>
 
         {store.user.isLogged ? (
-          <Button onClick={handledRestartGame} variant="light">
-            Restart Game
-          </Button>
+          <div>
+            <Navbar.Brand>
+              Total Count: {store.game.totalFlipCount}
+            </Navbar.Brand>
+            <Button onClick={handledRestartGame} variant="light">
+              Restart Game
+            </Button>
+          </div>
         ) : (
           ""
         )}
       </Navbar>
-      localStorage.isLogged: {localStorage.getItem("isLogged")}
     </Jumbotron>
   );
 });

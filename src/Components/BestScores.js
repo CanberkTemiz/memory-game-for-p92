@@ -5,28 +5,28 @@ import { useStore } from "../Store";
 
 const StyledWrapper = styled.div`
   margin: 40px 0 40px 0;
+  display: flex;
+  justify-content: center;
 `;
 
 const BestScores = () => {
   const store = useStore();
   return (
     <StyledWrapper>
-      <Accordion defaultActiveKey="0">
+      <Accordion defaultActiveKey="1">
         <Card>
-          <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0">
-              Show Best Results
-            </Accordion.Toggle>
-          </Card.Header>
+          <Accordion.Toggle as={Button} eventKey="0" variant="danger">
+            Show Best Results
+          </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
               <ListGroup variant="flush">
                 {store.bestScore.map((element, index) => {
                   return (
                     <ListGroup.Item key={index}>
-                      <h3>
+                      <p>
                         {element.pair}# Pair - Best Score:{element.score}
-                      </h3>
+                      </p>
                     </ListGroup.Item>
                   );
                 })}
