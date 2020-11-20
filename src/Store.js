@@ -69,7 +69,6 @@ export default class Store {
   updateBestScore(currentScore) {
     this.bestScore.filter((element) => {
       if (element.pair === currentScore.pair) {
-        console.log("element", element);
         if (element.score > currentScore.score || element.score === 0) {
           element.score = currentScore.score;
         }

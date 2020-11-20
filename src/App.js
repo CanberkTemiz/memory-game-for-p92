@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import localStorage from "mobx-localstorage";
 
-import { Alert, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useStore } from "./Store";
 
 import Login from "./Components/Login";
 import MemoryGame from "./Components/MemoryGame";
 import Header from "./Components/Header";
 import BestScores from "./Components/BestScores";
+import WinAlert from "./Components/WinAlert";
 
 const App = observer(() => {
   const [isLogged, setIsLogged] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+
   const store = useStore();
 
   useEffect(() => {
@@ -33,29 +34,10 @@ const App = observer(() => {
     }
   }, [store.bestScores]);
 
-  useEffect(() => {
-    if (store.game.won === true) {
-      console.log("kazanip geldim");
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 2500);
-    }
-  }, [store.game.won]);
-
   return (
     <Container>
       <Header />
-      {
-        <Alert
-          show={showAlert}
-          onClose={() => setShowAlert(false)}
-          variant="danger"
-          dismissible
-        >
-          You won !
-        </Alert>
-      }
+      <WinAlert />
       <BestScores />
       {isLogged ? <MemoryGame /> : <Login />}
     </Container>

@@ -96,7 +96,6 @@ const MemoryGame = observer(() => {
 
   return (
     <div>
-      <h4>ben hep burdayim</h4>
       {store.deck.length > 0 &&
         store.deck.map((card, index) => {
           return (

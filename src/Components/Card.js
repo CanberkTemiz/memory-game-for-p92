@@ -36,7 +36,7 @@ const Card = ({ card }) => {
     if (store.game.validFlipCount === 2) {
       store.incrementTotalFlipCount();
 
-      checkPair();
+      checkTwoOpenCards();
     }
   }, [store.game.validFlipCount]);
 
@@ -50,25 +50,21 @@ const Card = ({ card }) => {
     localStorage.setItem("deck", store.deck);
   };
 
-  const checkPair = () => {
+  const checkTwoOpenCards = () => {
+    // if same card
     if (
       store.game.flippedCards[0].number === store.game.flippedCards[1].number &&
       store.game.flippedCards[0].id != store.game.flippedCards[1].id
     ) {
-      console.log("pair found");
-
       // disable the found pair
       store.disableFoundPair(store.game.flippedCards[0].number);
-      localStorage.setItem("deck", store.deck);
-      localStorage.setItem("totalCount", store.game.totalFlipCount);
-      localStorage.setItem("foundPair", store.game.foundPair);
+
+      saveCurrentLocalStorage();
 
       store.incrementFoundPairCount();
 
-      // win case
+      // check win case
       if (store.game.foundPair == store.game.option) {
-        console.log("win case");
-
         store.updateBestScore({
           pair: parseInt(store.game.option),
           score: store.game.totalFlipCount,
@@ -82,13 +78,10 @@ const Card = ({ card }) => {
         localStorage.setItem("isLogged", false);
       }
     } else {
-      console.log("keep trying");
-
+      // not a pair
       setTimeout(() => {
         store.resetDeck();
-        localStorage.setItem("deck", store.deck);
-        localStorage.setItem("totalCount", store.game.totalFlipCount);
-        localStorage.setItem("foundPair", store.game.foundPair);
+        saveCurrentLocalStorage();
       }, 500);
     }
     // save the deck -- in case of reload
@@ -97,9 +90,12 @@ const Card = ({ card }) => {
     store.game.validFlipCount = 0;
   };
 
-  autorun(() => {
-    // console.log("autorun...", localStorage.getItem("isLogged"));
-  });
+  const saveCurrentLocalStorage = () => {
+    console.log("local save");
+    localStorage.setItem("deck", store.deck);
+    localStorage.setItem("totalCount", store.game.totalFlipCount);
+    localStorage.setItem("foundPair", store.game.foundPair);
+  };
 
   return (
     <div>
