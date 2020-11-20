@@ -1,4 +1,3 @@
-import { observer } from "mobx-react";
 import React, { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
 import { useStore } from "../Store";
