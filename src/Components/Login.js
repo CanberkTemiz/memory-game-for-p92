@@ -25,7 +25,7 @@ const Login = observer(() => {
     store.setOption(option);
     store.setLogin(true);
     localStorage.setItem("isLogged", "true");
-
+    store.setWinner(false);
     store.setReloadControl();
   };
 

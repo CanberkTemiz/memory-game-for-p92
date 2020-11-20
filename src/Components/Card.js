@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { autorun } from "mobx";
 import localStorage from "mobx-localstorage";
 import styled from "styled-components";
+
 import { useStore } from "../Store";
 
 import { images } from "./images/index";
@@ -63,18 +64,11 @@ const Card = ({ card }) => {
       localStorage.setItem("foundPair", store.game.foundPair);
 
       store.incrementFoundPairCount();
-      console.log(
-        "store.game.foundPair",
-        store.game.foundPair,
-        "store.game.option",
-        store.game.option
-      );
 
       // win case
       if (store.game.foundPair == store.game.option) {
         console.log("win case");
 
-        console.log("win case: totalFlipCount: ", store.game.totalFlipCount);
         store.updateBestScore({
           pair: parseInt(store.game.option),
           score: store.game.totalFlipCount,
@@ -89,8 +83,6 @@ const Card = ({ card }) => {
       }
     } else {
       console.log("keep trying");
-
-      // kartlari geri dondur
 
       setTimeout(() => {
         store.resetDeck();
