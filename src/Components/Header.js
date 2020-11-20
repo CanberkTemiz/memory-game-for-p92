@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { observer, useObserver } from "mobx-react";
+import React from "react";
+import { observer } from "mobx-react";
+import localStorage from "mobx-localstorage";
 
 import { Navbar, Nav, Jumbotron, Button } from "react-bootstrap";
 import { useStore } from "../Store";
@@ -16,7 +17,7 @@ const Header = observer(() => {
   const handledRestartGame = () => {
     // Restart the game
     store.flushDeck();
-    localStorage.setItem("isLogged", "false");
+    localStorage.setItem("isLogged", false);
     localStorage.removeItem("deck");
     store.setLogin(false);
   };

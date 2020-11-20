@@ -13,6 +13,7 @@ const StyledCardList = styled.div`
 const MemoryGame = observer(() => {
   const store = useStore();
 
+  // create pictures
   const pictures = [
     "0.png",
     "1.png",
@@ -59,18 +60,15 @@ const MemoryGame = observer(() => {
       store.cardPush(secondOption);
     }
 
-    store.shuffleDeck();
+    store.shuffleAndSaveDeck();
   }, []);
 
   // save the current game -- when page refesh
   useEffect(() => {
-    // console.log("use Effect, init, store.bestScore", store.bestScore);
-
-    console.log("calistimm");
     if (!store.game.won) {
       if (store.deck.length <= 0 && store.user.isLogged) {
         if (localStorage.getItem("deck").length) {
-          // let currentDeck = JSON.parse(localStorage.getItem("deck"));
+          // collect data from current session
           let currentDeck = localStorage.getItem("deck");
           let currentTotalCount = localStorage.getItem("totalCount");
           let currentFoundPair = localStorage.getItem("foundPair");
@@ -87,13 +85,18 @@ const MemoryGame = observer(() => {
     }
   }, [store.deck.length]);
 
+  // recover bestResults
   useEffect(() => {
-    localStorage.setItem("bestScore", store.bestScore);
-  }, []);
+    if (localStorage.getItem("bestScore")) {
+      let scores = localStorage.getItem("bestScore");
+
+      store.resumeBestScore(scores);
+    }
+  }, [store.bestScore]);
 
   return (
     <div>
-      <h4>ben hep butrdyaim</h4>
+      <h4>ben hep burdayim</h4>
       {store.deck.length > 0 &&
         store.deck.map((card, index) => {
           return (

@@ -48,9 +48,13 @@ export default class Store {
       score: 0,
     },
   ];
+  reloadControl = [];
 
   constructor() {
     makeAutoObservable(this);
+  }
+  setReloadControl() {
+    this.reloadControl.push(true);
   }
   setLogin(boolean) {
     this.user.isLogged = boolean;
@@ -61,12 +65,8 @@ export default class Store {
   setWinner(boolean) {
     this.game.won = boolean;
   }
-  scorePush(currentScore) {
-    console.log("score push calisti");
-  }
-  updateBestScore(currentScore) {
-    console.log("score update calisti");
 
+  updateBestScore(currentScore) {
     this.bestScore.filter((element) => {
       if (element.pair === currentScore.pair) {
         console.log("element", element);
@@ -75,8 +75,6 @@ export default class Store {
         }
       }
     });
-
-    console.log("update sonrasi scores: ", this.bestScore);
   }
   incrementFoundPairCount() {
     this.game.foundPair = this.game.foundPair + 1;
@@ -92,7 +90,7 @@ export default class Store {
   cardPush(card) {
     this.deck.push(card);
   }
-  shuffleDeck() {
+  shuffleAndSaveDeck() {
     this.deck = this.deck.sort(() => Math.random() - 0.5);
   }
   flushDeck() {
@@ -144,6 +142,9 @@ export default class Store {
       " prev found pair ",
       this.game.foundPair
     );
+  }
+  resumeBestScore(scores) {
+    this.bestScore = scores;
   }
   incrementValidFlipCount() {
     this.game.validFlipCount = this.game.validFlipCount + 1;

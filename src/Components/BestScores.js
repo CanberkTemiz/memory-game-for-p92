@@ -1,3 +1,4 @@
+import { observer } from "mobx-react";
 import React from "react";
 import { Accordion, Card, Button, ListGroup } from "react-bootstrap";
 import styled from "styled-components";
@@ -9,8 +10,9 @@ const StyledWrapper = styled.div`
   justify-content: center;
 `;
 
-const BestScores = () => {
+const BestScores = observer(() => {
   const store = useStore();
+
   return (
     <StyledWrapper>
       <Accordion defaultActiveKey="1">
@@ -21,15 +23,16 @@ const BestScores = () => {
           <Accordion.Collapse eventKey="0">
             <Card.Body>
               <ListGroup variant="flush">
-                {store.bestScore.map((element, index) => {
-                  return (
-                    <ListGroup.Item key={index}>
-                      <p>
-                        {element.pair}# Pair - Best Score:{element.score}
-                      </p>
-                    </ListGroup.Item>
-                  );
-                })}
+                {store.bestScore &&
+                  store.bestScore.map((element, index) => {
+                    return (
+                      <ListGroup.Item key={index}>
+                        <p>
+                          {element.pair}# Pair - Best Score:{element.score}
+                        </p>
+                      </ListGroup.Item>
+                    );
+                  })}
               </ListGroup>
             </Card.Body>
           </Accordion.Collapse>
@@ -37,6 +40,6 @@ const BestScores = () => {
       </Accordion>
     </StyledWrapper>
   );
-};
+});
 
 export default BestScores;
