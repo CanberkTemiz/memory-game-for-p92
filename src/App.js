@@ -12,23 +12,14 @@ import BestScores from "./Components/BestScores";
 import WinAlert from "./Components/WinAlert";
 
 const App = observer(() => {
-  const [isLogged, setIsLogged] = useState(false);
-
+  const isLoggedIn = localStorage.getItem("isLogged");
   const store = useStore();
-
-  useEffect(() => {
-    if (localStorage.getItem("isLogged")) {
-      setIsLogged(true);
-    } else {
-      setIsLogged(false);
-    }
-  }, [store.user.isLogged]);
 
   // when page refresh => save the bestScores
   useEffect(() => {
     if (store.deck.length <= 0) {
       if (localStorage.getItem("bestScore")) {
-        let currentBestScore = localStorage.getItem("bestScore");
+        const currentBestScore = localStorage.getItem("bestScore");
         store.resumeBestScore(currentBestScore);
       }
     }
@@ -39,7 +30,7 @@ const App = observer(() => {
       <Header />
       <WinAlert />
       <BestScores />
-      {isLogged ? <MemoryGame /> : <Login />}
+      {isLoggedIn ? <MemoryGame /> : <Login />}
     </Container>
   );
 });

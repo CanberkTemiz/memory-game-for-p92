@@ -23,11 +23,9 @@ const Header = observer(() => {
   };
 
   autorun(() => {
-    if (localStorage.getItem("isLogged") === "true") {
-      store.user.isLogged = true;
-    } else {
-      store.user.isLogged = false;
-    }
+    localStorage.getItem("isLogged") === "true"
+      ? (store.user.isLogged = true)
+      : (store.user.isLogged = false);
   });
 
   return (

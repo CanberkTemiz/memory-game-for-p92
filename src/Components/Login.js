@@ -15,8 +15,9 @@ const StyledRules = styled.div`
 `;
 
 const Login = observer(() => {
-  const store = useStore();
   const [option, setOption] = useState("");
+
+  const store = useStore();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();

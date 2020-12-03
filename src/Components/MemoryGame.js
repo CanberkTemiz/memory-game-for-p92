@@ -69,16 +69,11 @@ const MemoryGame = observer(() => {
       if (store.deck.length <= 0 && store.user.isLogged) {
         if (localStorage.getItem("deck").length) {
           // collect data from current session
-          let currentDeck = localStorage.getItem("deck");
-          let currentTotalCount = localStorage.getItem("totalCount");
-          let currentFoundPair = localStorage.getItem("foundPair");
-          let currentBestScore = localStorage.getItem("bestScore");
-
           store.resumeGame(
-            currentDeck,
-            currentTotalCount,
-            currentFoundPair,
-            currentBestScore
+            localStorage.getItem("deck"),
+            localStorage.getItem("totalCount"),
+            localStorage.getItem("foundPair"),
+            localStorage.getItem("bestScore")
           );
         }
       }
@@ -88,9 +83,7 @@ const MemoryGame = observer(() => {
   // recover bestResults
   useEffect(() => {
     if (localStorage.getItem("bestScore")) {
-      let scores = localStorage.getItem("bestScore");
-
-      store.resumeBestScore(scores);
+      store.resumeBestScore(localStorage.getItem("bestScore"));
     }
   }, [store.bestScore]);
 

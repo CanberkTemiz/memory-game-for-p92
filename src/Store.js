@@ -97,9 +97,7 @@ export default class Store {
     this.game.totalFlipCount = 0;
     this.deck.length = 0;
   }
-  showDeck() {
-    console.log([...this.deck]);
-  }
+
   updateDeck(id) {
     this.deck = this.deck.map((card) => {
       if (card.id === id) {
@@ -118,8 +116,6 @@ export default class Store {
     });
   }
   resumeGame(deck, prevTotalCount, prevFoundPairCount, currentBestScore) {
-    console.log("resume game calisti");
-
     // retrieve the prev total count
     this.game.totalFlipCount = parseInt(prevTotalCount);
 
@@ -132,15 +128,6 @@ export default class Store {
     this.game.foundPair = parseInt(prevFoundPairCount);
 
     this.bestScore = currentBestScore;
-
-    console.log(
-      "prev totalCount",
-      prevTotalCount,
-      " prev option",
-      this.game.option,
-      " prev found pair ",
-      this.game.foundPair
-    );
   }
   resumeBestScore(scores) {
     this.bestScore = scores;

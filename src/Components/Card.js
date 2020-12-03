@@ -82,7 +82,7 @@ const Card = ({ card }) => {
       setTimeout(() => {
         store.resetDeck();
         saveCurrentLocalStorage();
-      }, 500);
+      }, 400);
     }
     // save the deck -- in case of reload
 
@@ -91,28 +91,25 @@ const Card = ({ card }) => {
   };
 
   const saveCurrentLocalStorage = () => {
-    console.log("local save");
     localStorage.setItem("deck", store.deck);
     localStorage.setItem("totalCount", store.game.totalFlipCount);
     localStorage.setItem("foundPair", store.game.foundPair);
   };
 
   return (
-    <div>
-      <ReactCardFlip isFlipped={card.flipped}>
-        <CustomCard
-          onClick={handleCardClick}
-          flipped={card.flipped}
-          number={card.number}
-        />
+    <ReactCardFlip isFlipped={card.flipped}>
+      <CustomCard
+        onClick={handleCardClick}
+        flipped={card.flipped}
+        number={card.number}
+      />
 
-        <CustomCard
-          onClick={handleCardClick}
-          flipped={card.flipped}
-          number={card.number}
-        />
-      </ReactCardFlip>
-    </div>
+      <CustomCard
+        onClick={handleCardClick}
+        flipped={card.flipped}
+        number={card.number}
+      />
+    </ReactCardFlip>
   );
 };
 
