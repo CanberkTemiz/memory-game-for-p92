@@ -17,15 +17,14 @@ import ReactCardFlip from "react-card-flip";
 //     props.flipped ? images[props.number].picture : backSideCard});
 // `;
 const cardStyle = {
-  backgroundColor: "blue",
+  backgroundImage: `url(${backSideCard})`,
   backgroundSize: "cover",
   width: "140px",
-  height: "120px",
+  height: "160px",
 };
 
 const Card = ({ card }) => {
   const store = useStore();
-  console.log(card);
 
   // useEffect(() => {
   //   // localStorage.setItem("totalCount", store.game.totalFlipCount);

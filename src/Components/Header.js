@@ -7,11 +7,14 @@ const StyledBrand = styled(Navbar.Brand)`
   font-size: 40px;
 `;
 
-const Header = () => {
+const Header = ({ setRestartGame }) => {
   const store = useContext(StoreContext);
 
-  const handledRestartGame = () => {
+  const handleRestartGame = () => {
+    console.log("clicked");
     // Restart the game
+    store.toggleLogin();
+    setRestartGame(true);
     // store.flushDeck();
     // localStorage.setItem("isLogged", false);
     // localStorage.removeItem("deck");
@@ -33,7 +36,7 @@ const Header = () => {
         <div>
           <Navbar.Brand>Total Count: 'total count static'</Navbar.Brand>
           {store.isLogged && (
-            <Button onClick={handledRestartGame} variant="light">
+            <Button onClick={handleRestartGame} variant="light">
               Restart Game
             </Button>
           )}
