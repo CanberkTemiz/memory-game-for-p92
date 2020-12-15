@@ -2,15 +2,33 @@ export const shuffleCards = (deck) => {
   return deck.sort(() => Math.random() - 0.5);
 };
 
-export const checkCards = (cards) => {
-  // if (flippedCards.length === 2) {
-  //   flippedCards.reduce((acc, prev) => {
-  //     if (acc.number === prev.number) {
-  //       acc.
-  //     }
-  //     console.log("acc", acc);
-  //     console.log("prev", prev);
-  //   });
-  //   return;
-  // }
+export const checkCards = (tempCards, flippedCards) => {
+  let result = [];
+
+  //same cards
+  if (flippedCards[0].number === flippedCards[1].number) {
+    flippedCards.forEach((el) => {
+      result = tempCards.map((card) => {
+        if (card.id === el.id) {
+          card.flipped = true;
+          card.disabled = true;
+          return el;
+        }
+        return card;
+      });
+    });
+    return result;
+  }
+
+  // not same cards
+  flippedCards.forEach((el) => {
+    result = tempCards.map((card) => {
+      if (card.id === el.id) {
+        card.flipped = false;
+        return el;
+      }
+      return card;
+    });
+  });
+  return result;
 };

@@ -1,28 +1,37 @@
-import React, { useEffect } from "react";
+import "./Card.css";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useStore } from "../Store";
 import { images } from "./images/index";
 import backSideCard from "./images/p92.png";
 import ReactCardFlip from "react-card-flip";
 
-// const CustomCard = styled.div`
-//   height: 140px;
-//   width: 120px;
-//   margin: 10px;
+const CustomCard = styled.div`
+  height: 140px;
+  width: 120px;
+  margin: 10px;
 
-//   background-size: cover;
-//   pointer-events: ${(props) => (props.flipped ? "none" : "")};
-//   background-image: url(${(props) =>
-//     props.flipped ? images[props.number].picture : backSideCard});
-// `;
-const cardStyle = {
-  backgroundImage: `url(${backSideCard})`,
-  backgroundSize: "cover",
-  width: "140px",
-  height: "160px",
-};
+  background-size: cover;
+  pointer-events: ${(props) => (props.flipped ? "none" : "")};
+  background-image: url(${(props) =>
+    props.flipped ? images[props.number].picture : backSideCard});
+`;
+// const cardStyleFront = {
+//   backgroundImage: `url(${backSideCard})`,
+//   backgroundSize: "cover",
+//   width: "140px",
+//   height: "160px",
+// };
+
+// const cardStyleBack = {
+//   backgroundImage: `${images[cardNumber].picture}`,
+//   backgroundSize: "cover",
+//   width: "140px",
+//   height: "160px",
+// };
 
 const Card = ({ card, onClick }) => {
+  // const [cardNumber, setCardNumber] = useState(card.number);
   const store = useStore();
 
   // useEffect(() => {
@@ -36,7 +45,6 @@ const Card = ({ card, onClick }) => {
   // }, [store.game.validFlipCount]);
 
   const handleCardClick = () => {
-    console.log("card from card", card);
     onClick(card);
     // console.log(card);
     // let tempCards = [...cards];
@@ -100,18 +108,18 @@ const Card = ({ card, onClick }) => {
   // };
 
   return (
-    <ReactCardFlip isFlipped={card.flipped}>
-      <div
-        className="single-card"
-        style={cardStyle}
+    <ReactCardFlip>
+      <CustomCard
+        number={card.number}
+        flipped={card.flipped}
         onClick={handleCardClick}
-      ></div>
+      />
 
-      <div
-        className="single-card"
-        style={cardStyle}
+      <CustomCard
+        number={card.number}
+        flipped={card.flipped}
         onClick={handleCardClick}
-      ></div>
+      />
     </ReactCardFlip>
   );
 };

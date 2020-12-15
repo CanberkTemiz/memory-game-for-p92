@@ -3,9 +3,11 @@ import { CardDeck } from "react-bootstrap";
 import Card from "./Card";
 import { shuffleCards, checkCards } from "../helpers";
 import Board from "./Board";
+import { set } from "mobx";
 
 const Game = ({ option }) => {
   const [cards, setCards] = useState([]);
+  const [flippedCards, setFlippedCards] = useState([]);
   const [winner, setWinner] = useState(false);
 
   // create pictures
@@ -33,7 +35,15 @@ const Game = ({ option }) => {
   ];
 
   const handleClick = (card) => {
-    console.log("card from game", card);
+    setFlippedCards((prev) => [...prev, card]);
+    card.flipped = true;
+    let tempCards = [...cards];
+    tempCards.forEach((el) => {
+      if (el.id === card.id) {
+        el.flipped = true;
+      }
+    });
+    setCards(tempCards);
   };
 
   // create deck
@@ -59,15 +69,20 @@ const Game = ({ option }) => {
 
       arr.push(firstOption, secondOption);
     }
-    const shuffled = shuffleCards(arr);
-    setCards(shuffled);
+    // const shuffled = shuffleCards(arr);
+    setCards(arr);
   }, []);
 
   useEffect(() => {
-    let flippedCards = cards.filter((card) => card.flipped);
+    let tempCards = [...cards];
 
-    checkCards(flippedCards);
-  }, [cards]);
+    if (flippedCards.length === 2) {
+      console.log("flipped", flippedCards);
+      let result = checkCards(tempCards, flippedCards);
+      setCards(result);
+      setFlippedCards([]);
+    }
+  }, [flippedCards]);
 
   // save the current game -- when page refesh
   // useEffect(() => {
@@ -96,7 +111,7 @@ const Game = ({ option }) => {
   // return <div style={divStyle}>{renderedItems}</div>;
   return (
     <div>
-      <Board cards={cards} onClick={handleClick} winner={winner} />
+      <Board cards={cards} onClick={handleClick} />
     </div>
   );
 };
