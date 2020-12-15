@@ -6,16 +6,22 @@ import backSideCard from "./images/p92.png";
 
 import ReactCardFlip from "react-card-flip";
 
-const CustomCard = styled.div`
-  height: 140px;
-  width: 120px;
-  margin: 10px;
+// const CustomCard = styled.div`
+//   height: 140px;
+//   width: 120px;
+//   margin: 10px;
 
-  background-size: cover;
-  pointer-events: ${(props) => (props.flipped ? "none" : "")};
-  background-image: url(${(props) =>
-    props.flipped ? images[props.number].picture : backSideCard});
-`;
+//   background-size: cover;
+//   pointer-events: ${(props) => (props.flipped ? "none" : "")};
+//   background-image: url(${(props) =>
+//     props.flipped ? images[props.number].picture : backSideCard});
+// `;
+const cardStyle = {
+  backgroundColor: "blue",
+  backgroundSize: "cover",
+  width: "140px",
+  height: "120px",
+};
 
 const Card = ({ card }) => {
   const store = useStore();
@@ -87,8 +93,8 @@ const Card = ({ card }) => {
   // };
 
   return (
-    <div className="cardd">
-      <ReactCardFlip isFlipped={card.flipped}>
+    <div className="single-card" style={cardStyle}>
+      {/* <ReactCardFlip isFlipped={card.flipped}>
         <CustomCard
           onClick={handleCardClick}
           flipped={card.flipped}
@@ -100,7 +106,7 @@ const Card = ({ card }) => {
           flipped={card.flipped}
           number={card.number}
         />
-      </ReactCardFlip>
+      </ReactCardFlip> */}
     </div>
   );
 };

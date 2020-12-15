@@ -3,12 +3,12 @@ import { CardDeck } from "react-bootstrap";
 import Card from "./Card";
 import styled from "styled-components";
 
-const StyledCards = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: wrap;
-`;
+const divStyle = {
+  display: "grid",
+  justifyContent: "space-evenly",
+  gridTemplateColumns: "auto auto auto auto",
+  rowGap: "30px",
+};
 
 const MemoryGame = ({ option }) => {
   const [cards, setCards] = useState([]);
@@ -91,7 +91,7 @@ const MemoryGame = ({ option }) => {
   //   }
   // }, [store.bestScore]);
 
-  return <StyledCards>{renderedItems}</StyledCards>;
+  return <div style={divStyle}>{renderedItems}</div>;
 };
 
 export default MemoryGame;

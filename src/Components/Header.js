@@ -1,13 +1,14 @@
-import React, { useStore } from "react";
+import React, { useContext, useStore } from "react";
 import { Navbar, Nav, Jumbotron, Button } from "react-bootstrap";
 import styled from "styled-components";
+import { StoreContext } from "../index";
 
 const StyledBrand = styled(Navbar.Brand)`
   font-size: 40px;
 `;
 
 const Header = () => {
-  // const store = useStore();
+  const store = useContext(StoreContext);
 
   const handledRestartGame = () => {
     // Restart the game
@@ -31,11 +32,12 @@ const Header = () => {
         </Nav>
         <div>
           <Navbar.Brand>Total Count: 'total count static'</Navbar.Brand>
-          <Button onClick={handledRestartGame} variant="light">
-            Restart Game
-          </Button>
+          {store.isLogged && (
+            <Button onClick={handledRestartGame} variant="light">
+              Restart Game
+            </Button>
+          )}
         </div>
-        }
       </Navbar>
     </Jumbotron>
   );
