@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { observer } from "mobx-react";
-import localStorage from "mobx-localstorage";
+import React, { useContext, useState } from "react";
 
 import styled from "styled-components";
 import { Form, FormControl, Button, Row, Col } from "react-bootstrap";
-import { useStore } from "../Store";
+import { StoreContext } from "../index";
 
 const StyledFormControl = styled(FormControl)`
   width: 200px !important;
@@ -14,20 +12,15 @@ const StyledRules = styled.div`
   margin-left: 60px;
 `;
 
-const Login = observer(() => {
-  const [option, setOption] = useState("");
-
-  const store = useStore();
+const Login = ({ onSelectOption }) => {
+  const [option, setOption] = useState(null);
+  const store = useContext(StoreContext);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    //start the game
-    store.setOption(option);
-    store.setLogin(true);
-    localStorage.setItem("isLogged", "true");
-    store.setWinner(false);
-    store.setReloadControl();
+    store.toggleLogin();
+    onSelectOption(option);
   };
 
   return (
@@ -46,7 +39,7 @@ const Login = observer(() => {
 
       <Col>
         <h3> Set pair of card to start</h3>
-        <Form onSubmit={(e) => handleFormSubmit(e)} inline>
+        <Form onSubmit={handleFormSubmit} inline>
           <StyledFormControl
             type="number"
             placeholder="Enter number of pair"
@@ -64,6 +57,6 @@ const Login = observer(() => {
       </Col>
     </Row>
   );
-});
+};
 
 export default Login;

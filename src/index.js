@@ -2,15 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
-import Store, { StoreProvider } from "./Store";
-
+import storeInstance from "./stores/UserStore";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const store = new Store();
+export const StoreContext = React.createContext();
 
 ReactDOM.render(
-  <StoreProvider store={store}>
+  <StoreContext.Provider value={storeInstance}>
     <App />
-  </StoreProvider>,
+  </StoreContext.Provider>,
   document.getElementById("root")
 );

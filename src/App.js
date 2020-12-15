@@ -1,38 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { observer } from "mobx-react";
-import localStorage from "mobx-localstorage";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Container } from "react-bootstrap";
-import { useStore } from "./Store";
+import { StoreContext } from "./index";
 
-import Login from "./Components/Login";
-import MemoryGame from "./Components/MemoryGame";
-import Header from "./Components/Header";
-import BestScores from "./Components/BestScores";
-import WinAlert from "./Components/WinAlert";
+import Login from "./components/Login";
+import MemoryGame from "./components/MemoryGame";
+import Header from "./components/Header";
+import WinAlert from "./components/WinAlert";
 
-const App = observer(() => {
-  const isLoggedIn = localStorage.getItem("isLogged");
-  const store = useStore();
-
-  // when page refresh => save the bestScores
-  useEffect(() => {
-    if (store.deck.length <= 0) {
-      if (localStorage.getItem("bestScore")) {
-        const currentBestScore = localStorage.getItem("bestScore");
-        store.resumeBestScore(currentBestScore);
-      }
-    }
-  }, [store.bestScores]);
-
+const App = () => {
+  const store = useContext(StoreContext);
+  const [option, setOption] = useState(null);
   return (
     <Container>
       <Header />
       <WinAlert />
-      <BestScores />
-      {isLoggedIn ? <MemoryGame /> : <Login />}
+      {store.isLogged ? (
+        <MemoryGame option={option} />
+      ) : (
+        <Login onSelectOption={setOption} />
+      )}
     </Container>
   );
-});
+};
 
 export default App;

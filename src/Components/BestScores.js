@@ -1,4 +1,3 @@
-import { observer } from "mobx-react";
 import React from "react";
 import { Accordion, Card, Button, ListGroup } from "react-bootstrap";
 import styled from "styled-components";
@@ -10,7 +9,7 @@ const StyledWrapper = styled.div`
   justify-content: center;
 `;
 
-const BestScores = observer(() => {
+const BestScores = () => {
   const store = useStore();
 
   return (
@@ -40,6 +39,6 @@ const BestScores = observer(() => {
       </Accordion>
     </StyledWrapper>
   );
-});
+};
 
 export default BestScores;

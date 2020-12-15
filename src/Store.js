@@ -48,17 +48,19 @@ export default class Store {
       score: 0,
     },
   ];
-  reloadControl = [];
 
   constructor() {
     makeAutoObservable(this);
   }
-  setReloadControl() {
-    this.reloadControl.push(true);
-  }
+
   setLogin(boolean) {
     this.user.isLogged = boolean;
   }
+
+  getUser() {
+    return this.user;
+  }
+
   setOption(option) {
     this.game.option = option;
   }

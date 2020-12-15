@@ -1,17 +1,21 @@
-import { observer } from "mobx-react";
-import localStorage from "mobx-localstorage";
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useStore } from "../Store";
-
+import React, { useEffect, useState } from "react";
+import { CardDeck } from "react-bootstrap";
 import Card from "./Card";
+import styled from "styled-components";
 
-const StyledCardList = styled.div`
-  float: left;
+const StyledCards = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
 `;
 
-const MemoryGame = observer(() => {
-  const store = useStore();
+const MemoryGame = ({ option }) => {
+  const [cards, setCards] = useState([]);
+
+  const renderedItems = cards.map((card, index) => {
+    return <Card card={card} key={card.id} />;
+  });
 
   // create pictures
   const pictures = [
@@ -39,7 +43,9 @@ const MemoryGame = observer(() => {
 
   // create deck
   useEffect(() => {
-    for (let i = 0; i < store.game.option; i++) {
+    let arr = [];
+
+    for (let i = 0; i < option; i++) {
       const firstOption = {
         id: i * 2,
         number: i,
@@ -56,49 +62,36 @@ const MemoryGame = observer(() => {
         disabled: false,
       };
 
-      store.cardPush(firstOption);
-      store.cardPush(secondOption);
+      arr.push(firstOption, secondOption);
     }
-
-    store.shuffleAndSaveDeck();
+    setCards(arr);
   }, []);
 
   // save the current game -- when page refesh
-  useEffect(() => {
-    if (!store.game.won) {
-      if (store.deck.length <= 0 && store.user.isLogged) {
-        if (localStorage.getItem("deck").length) {
-          // collect data from current session
-          store.resumeGame(
-            localStorage.getItem("deck"),
-            localStorage.getItem("totalCount"),
-            localStorage.getItem("foundPair"),
-            localStorage.getItem("bestScore")
-          );
-        }
-      }
-    }
-  }, [store.deck.length]);
+  // useEffect(() => {
+  //   if (!store.game.won) {
+  //     if (store.deck.length <= 0 && store.user.isLogged) {
+  //       if (localStorage.getItem("deck").length) {
+  //         // collect data from current session
+  //         store.resumeGame(
+  //           localStorage.getItem("deck"),
+  //           localStorage.getItem("totalCount"),
+  //           localStorage.getItem("foundPair"),
+  //           localStorage.getItem("bestScore")
+  //         );
+  //       }
+  //     }
+  //   }
+  // }, [store.deck.length]);
 
   // recover bestResults
-  useEffect(() => {
-    if (localStorage.getItem("bestScore")) {
-      store.resumeBestScore(localStorage.getItem("bestScore"));
-    }
-  }, [store.bestScore]);
+  // useEffect(() => {
+  //   if (localStorage.getItem("bestScore")) {
+  //     store.resumeBestScore(localStorage.getItem("bestScore"));
+  //   }
+  // }, [store.bestScore]);
 
-  return (
-    <div>
-      {store.deck.length > 0 &&
-        store.deck.map((card, index) => {
-          return (
-            <StyledCardList key={index}>
-              <Card card={card} key={card.id} />
-            </StyledCardList>
-          );
-        })}
-    </div>
-  );
-});
+  return <StyledCards>{renderedItems}</StyledCards>;
+};
 
 export default MemoryGame;
