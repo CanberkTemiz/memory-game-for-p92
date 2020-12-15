@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useStore } from "../Store";
 import { images } from "./images/index";
 import backSideCard from "./images/p92.png";
-
 import ReactCardFlip from "react-card-flip";
 
 // const CustomCard = styled.div`
@@ -23,7 +22,7 @@ const cardStyle = {
   height: "160px",
 };
 
-const Card = ({ card }) => {
+const Card = ({ card, onClick }) => {
   const store = useStore();
 
   // useEffect(() => {
@@ -37,6 +36,15 @@ const Card = ({ card }) => {
   // }, [store.game.validFlipCount]);
 
   const handleCardClick = () => {
+    console.log("card from card", card);
+    onClick(card);
+    // console.log(card);
+    // let tempCards = [...cards];
+    // tempCards.find((el) => {
+    //   if (el.id === card.id) {
+    //     el.flipped = true;
+    //   }
+    // });
     // console.log("clicked card# ", card.number);
     // store.updateDeck(card.id); //flip card
     // store.incrementValidFlipCount();
@@ -92,21 +100,19 @@ const Card = ({ card }) => {
   // };
 
   return (
-    <div className="single-card" style={cardStyle}>
-      {/* <ReactCardFlip isFlipped={card.flipped}>
-        <CustomCard
-          onClick={handleCardClick}
-          flipped={card.flipped}
-          number={card.number}
-        />
+    <ReactCardFlip isFlipped={card.flipped}>
+      <div
+        className="single-card"
+        style={cardStyle}
+        onClick={handleCardClick}
+      ></div>
 
-        <CustomCard
-          onClick={handleCardClick}
-          flipped={card.flipped}
-          number={card.number}
-        />
-      </ReactCardFlip> */}
-    </div>
+      <div
+        className="single-card"
+        style={cardStyle}
+        onClick={handleCardClick}
+      ></div>
+    </ReactCardFlip>
   );
 };
 

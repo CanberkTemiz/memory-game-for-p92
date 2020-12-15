@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { CardDeck } from "react-bootstrap";
 import Card from "./Card";
-import styled from "styled-components";
+import { shuffleCards, checkCards } from "../helpers";
+import Board from "./Board";
 
-const divStyle = {
-  display: "grid",
-  justifyContent: "space-evenly",
-  gridTemplateColumns: "auto auto auto auto",
-  rowGap: "30px",
-};
-
-const MemoryGame = ({ option }) => {
+const Game = ({ option }) => {
   const [cards, setCards] = useState([]);
-
-  const renderedItems = cards.map((card, index) => {
-    return <Card card={card} key={card.id} />;
-  });
+  const [winner, setWinner] = useState(false);
 
   // create pictures
   const pictures = [
@@ -41,6 +32,10 @@ const MemoryGame = ({ option }) => {
     "19.png",
   ];
 
+  const handleClick = (card) => {
+    console.log("card from game", card);
+  };
+
   // create deck
   useEffect(() => {
     let arr = [];
@@ -64,8 +59,15 @@ const MemoryGame = ({ option }) => {
 
       arr.push(firstOption, secondOption);
     }
-    setCards(arr);
+    const shuffled = shuffleCards(arr);
+    setCards(shuffled);
   }, []);
+
+  useEffect(() => {
+    let flippedCards = cards.filter((card) => card.flipped);
+
+    checkCards(flippedCards);
+  }, [cards]);
 
   // save the current game -- when page refesh
   // useEffect(() => {
@@ -91,7 +93,12 @@ const MemoryGame = ({ option }) => {
   //   }
   // }, [store.bestScore]);
 
-  return <div style={divStyle}>{renderedItems}</div>;
+  // return <div style={divStyle}>{renderedItems}</div>;
+  return (
+    <div>
+      <Board cards={cards} onClick={handleClick} winner={winner} />
+    </div>
+  );
 };
 
-export default MemoryGame;
+export default Game;

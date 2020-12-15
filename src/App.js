@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { StoreContext } from "./index";
 
 import Login from "./components/Login";
-import MemoryGame from "./components/MemoryGame";
+import Game from "./components/Game";
 import Header from "./components/Header";
 import WinAlert from "./components/WinAlert";
 
@@ -22,7 +22,7 @@ const App = () => {
       <Header setRestartGame={setRestartGame} />
       <WinAlert />
       {store.isLogged ? (
-        <MemoryGame option={option} />
+        <Game option={option} />
       ) : (
         <Login onSelectOption={setOption} />
       )}
