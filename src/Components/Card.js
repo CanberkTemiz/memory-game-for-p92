@@ -108,7 +108,7 @@ const Card = ({ card, onClick }) => {
   // };
 
   return (
-    <ReactCardFlip>
+    <ReactCardFlip isFlipped={card.flipped}>
       <CustomCard
         number={card.number}
         flipped={card.flipped}

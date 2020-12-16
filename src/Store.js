@@ -80,14 +80,14 @@ export default class Store {
   incrementFoundPairCount() {
     this.game.foundPair = this.game.foundPair + 1;
   }
-  disableFoundPair(number) {
-    this.deck = this.deck.map((card) => {
-      if (card.number === number) {
-        card.disabled = true;
-      }
-      return card;
-    });
-  }
+  // disableFoundPair(number) {
+  //   this.deck = this.deck.map((card) => {
+  //     if (card.number === number) {
+  //       card.disabled = true;
+  //     }
+  //     return card;
+  //   });
+  // }
   cardPush(card) {
     this.deck.push(card);
   }

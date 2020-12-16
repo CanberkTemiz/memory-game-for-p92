@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import styled from "styled-components";
 import { Form, FormControl, Button, Row, Col } from "react-bootstrap";
@@ -13,7 +13,7 @@ const StyledRules = styled.div`
 `;
 
 const Login = ({ onSelectOption }) => {
-  const [option, setOption] = useState(null);
+  const [option, setOption] = useState("");
   const store = useContext(StoreContext);
 
   const handleFormSubmit = (e) => {
@@ -21,7 +21,12 @@ const Login = ({ onSelectOption }) => {
 
     store.toggleLogin();
     onSelectOption(option);
+    setOption("");
   };
+
+  useEffect(() => {
+    console.log("degisti");
+  }, [option]);
 
   return (
     <Row>

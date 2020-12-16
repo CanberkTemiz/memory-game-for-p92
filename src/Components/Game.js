@@ -35,15 +35,16 @@ const Game = ({ option }) => {
   ];
 
   const handleClick = (card) => {
-    setFlippedCards((prev) => [...prev, card]);
-    card.flipped = true;
-    let tempCards = [...cards];
-    tempCards.forEach((el) => {
+    let tempCards = cards.map((el) => {
       if (el.id === card.id) {
-        el.flipped = true;
+        return { ...card, flipped: true };
       }
+      return el;
     });
+
     setCards(tempCards);
+
+    setFlippedCards((prev) => [...prev, card]);
   };
 
   // create deck
@@ -74,12 +75,16 @@ const Game = ({ option }) => {
   }, []);
 
   useEffect(() => {
-    let tempCards = [...cards];
+    // console.log("cards", cards);
+    // console.log("flippedCards", flippedCards);
+  });
 
+  useEffect(() => {
     if (flippedCards.length === 2) {
-      console.log("flipped", flippedCards);
-      let result = checkCards(tempCards, flippedCards);
+      let result = checkCards(cards, flippedCards);
+
       setCards(result);
+
       setFlippedCards([]);
     }
   }, [flippedCards]);
@@ -111,7 +116,7 @@ const Game = ({ option }) => {
   // return <div style={divStyle}>{renderedItems}</div>;
   return (
     <div>
-      <Board cards={cards} onClick={handleClick} />
+      <Board cards={cards} onCardClick={handleClick} />
     </div>
   );
 };

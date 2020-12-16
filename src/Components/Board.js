@@ -8,9 +8,9 @@ const boardStyle = {
   rowGap: "30px",
 };
 
-const Board = ({ cards, onClick }) => {
+const Board = ({ cards, onCardClick }) => {
   const renderedItems = cards.map((card) => {
-    return <Card card={card} onClick={onClick} key={card.id} />;
+    return <Card card={card} onClick={onCardClick} key={card.id} />;
   });
 
   return <div style={boardStyle}>{renderedItems}</div>;

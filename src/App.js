@@ -13,13 +13,9 @@ const App = () => {
   const [option, setOption] = useState(null);
   const [restartGame, setRestartGame] = useState(false);
 
-  useEffect(() => {
-    setRestartGame(false);
-  }, [restartGame]);
-
   return (
     <Container>
-      <Header setRestartGame={setRestartGame} />
+      <Header onRestartGame={setRestartGame} restartGame={restartGame} />
       <WinAlert />
       {store.isLogged ? (
         <Game option={option} />
