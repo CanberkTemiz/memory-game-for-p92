@@ -10,12 +10,20 @@ import WinAlert from "./components/WinAlert";
 
 const App = () => {
   const store = useContext(StoreContext);
-  const [option, setOption] = useState(null);
+  const [option, setOption] = useState(0);
   const [restartGame, setRestartGame] = useState(false);
+
+  useEffect(() => {
+    console.log("rendered");
+  });
 
   return (
     <Container>
-      <Header onRestartGame={setRestartGame} restartGame={restartGame} />
+      <Header
+        onRestartGame={setRestartGame}
+        restartGame={restartGame}
+        onSelectOption={setOption}
+      />
       <WinAlert />
       {store.isLogged ? (
         <Game option={option} />

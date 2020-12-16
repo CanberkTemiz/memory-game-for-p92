@@ -32,7 +32,6 @@ const CustomCard = styled.div`
 
 const Card = ({ card, onClick }) => {
   // const [cardNumber, setCardNumber] = useState(card.number);
-  const store = useStore();
 
   // useEffect(() => {
   //   // localStorage.setItem("totalCount", store.game.totalFlipCount);

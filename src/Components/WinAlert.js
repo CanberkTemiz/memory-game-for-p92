@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
-import { useStore } from "../Store";
 
 const WinAlert = () => {
-  const store = useStore();
   const [showAlert, setShowAlert] = useState(false);
 
   // useEffect(() => {

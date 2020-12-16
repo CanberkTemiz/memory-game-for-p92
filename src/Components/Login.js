@@ -13,20 +13,19 @@ const StyledRules = styled.div`
 `;
 
 const Login = ({ onSelectOption }) => {
-  const [option, setOption] = useState("");
+  const [optionn, setOptionn] = useState("");
   const store = useContext(StoreContext);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
     store.toggleLogin();
-    onSelectOption(option);
-    setOption("");
+
+    onSelectOption(optionn);
   };
 
-  useEffect(() => {
-    console.log("degisti");
-  }, [option]);
+  const handleOnChange = (e) => {
+    setOptionn(e.target.value);
+  };
 
   return (
     <Row>
@@ -52,7 +51,7 @@ const Login = ({ onSelectOption }) => {
             max="10"
             required
             className="mr-sm-2"
-            onChange={(e) => setOption(e.target.value)}
+            onChange={handleOnChange}
           />
 
           <Button type="submit" variant="danger">

@@ -7,13 +7,15 @@ const StyledBrand = styled(Navbar.Brand)`
   font-size: 40px;
 `;
 
-const Header = ({ restartGame, onRestartGame }) => {
+const Header = ({ restartGame, onRestartGame, onSelectOption }) => {
   const store = useContext(StoreContext);
 
   const handleRestartGame = () => {
     // Restart the game
     store.toggleLogin();
     onRestartGame(!restartGame);
+    onSelectOption(0);
+
     // store.flushDeck();
     // localStorage.setItem("isLogged", false);
     // localStorage.removeItem("deck");
