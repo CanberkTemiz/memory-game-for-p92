@@ -15,18 +15,7 @@ const Header = ({ restartGame, onRestartGame, onSelectOption }) => {
     store.toggleLogin();
     onRestartGame(!restartGame);
     onSelectOption(0);
-
-    // store.flushDeck();
-    // localStorage.setItem("isLogged", false);
-    // localStorage.removeItem("deck");
-    // store.setLogin(false);
   };
-
-  // autorun(() => {
-  //   localStorage.getItem("isLogged") === "true"
-  //     ? (store.user.isLogged = true)
-  //     : (store.user.isLogged = false);
-  // });
 
   return (
     <Jumbotron>

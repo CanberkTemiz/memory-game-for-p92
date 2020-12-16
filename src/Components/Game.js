@@ -75,11 +75,6 @@ const Game = ({ option }) => {
   }, []);
 
   useEffect(() => {
-    // console.log("cards", cards);
-    // console.log("flippedCards", flippedCards);
-  });
-
-  useEffect(() => {
     if (flippedCards.length === 2) {
       let result = checkCards(cards, flippedCards);
 
@@ -89,31 +84,6 @@ const Game = ({ option }) => {
     }
   }, [flippedCards]);
 
-  // save the current game -- when page refesh
-  // useEffect(() => {
-  //   if (!store.game.won) {
-  //     if (store.deck.length <= 0 && store.user.isLogged) {
-  //       if (localStorage.getItem("deck").length) {
-  //         // collect data from current session
-  //         store.resumeGame(
-  //           localStorage.getItem("deck"),
-  //           localStorage.getItem("totalCount"),
-  //           localStorage.getItem("foundPair"),
-  //           localStorage.getItem("bestScore")
-  //         );
-  //       }
-  //     }
-  //   }
-  // }, [store.deck.length]);
-
-  // recover bestResults
-  // useEffect(() => {
-  //   if (localStorage.getItem("bestScore")) {
-  //     store.resumeBestScore(localStorage.getItem("bestScore"));
-  //   }
-  // }, [store.bestScore]);
-
-  // return <div style={divStyle}>{renderedItems}</div>;
   return (
     <div>
       <Board cards={cards} onCardClick={handleClick} />
