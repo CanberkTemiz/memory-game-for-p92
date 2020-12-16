@@ -8,14 +8,17 @@ import Game from "./components/Game";
 import Header from "./components/Header";
 import WinAlert from "./components/WinAlert";
 
+const init = [1, 2, 3, 4, 5];
+
 const App = () => {
   const store = useContext(StoreContext);
   const [option, setOption] = useState(0);
-  const [restartGame, setRestartGame] = useState(false);
 
+  const [restartGame, setRestartGame] = useState(false);
+  const { age, ...newObj } = obj;
   useEffect(() => {
-    console.log("rendered");
-  });
+    console.log(newObj);
+  }, []);
 
   return (
     <Container>
